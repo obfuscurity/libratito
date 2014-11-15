@@ -11,7 +11,7 @@ module Libratito
     end
 
     before do
-      halt unless validated?
+      #halt unless validated?
       content_type :json
     end
 
