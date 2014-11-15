@@ -11,7 +11,7 @@ module Libratito
     end
 
     before do
-      #halt unless validated?
+      halt unless validated?
       content_type :json
     end
 
@@ -23,8 +23,8 @@ module Libratito
     end
 
     post '/event/?' do
-      p request.env
-      # check X-Webhook-Name for 'created' or 'updated'
+      p request.body
+      # check request.env['HTTP_X_WEBHOOK_NAME'] for 'ticket.created' or 'ticket.updated'
       #RestClient.post 'https://metrics-api.librato.com/v1/metrics'
       #RestClient.post 'https://metrics-api.librato.com/v1/annotations/monitorama-registration'
       # XXX use 'pdx2015' as the source
