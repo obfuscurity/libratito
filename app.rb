@@ -23,7 +23,7 @@ module Libratito
     end
 
     post '/event/?' do
-      p request.body
+      p JSON.parse(request.body.read)
       # check request.env['HTTP_X_WEBHOOK_NAME'] for 'ticket.created' or 'ticket.updated'
       #RestClient.post 'https://metrics-api.librato.com/v1/metrics'
       #RestClient.post 'https://metrics-api.librato.com/v1/annotations/monitorama-registration'
