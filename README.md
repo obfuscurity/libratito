@@ -47,7 +47,7 @@ Now login to your Tito account and navigate to the "Customize &gt; Webhooks" sec
 $ heroku apps:info | grep Web | awk '{print $3}'
 ```
 
-Finally, take the string you set for `TITO_WEBHOOK_SECRET` and enter it in the "Custom Data" field on the same page. Once this is complete you can press save and you should be done. Add an attendee to test that your webhook is working and metrics are being received. You can also use `heroku logs -t` to monitor the application logs.
+Finally, take the string you set for `TITO_WEBHOOK_SECRET` and enter it in the `Custom Data` field on the same page. Once this is complete you can press save and you should be done. Add an attendee to test that your webhook is working and metrics are being received. You can also use `heroku logs -t` to monitor the application logs.
 
 ## License
 
