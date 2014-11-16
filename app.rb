@@ -16,10 +16,10 @@ module Libratito
     end
 
     helpers do
-      def validates?(secret)
+      def tito_authenticates?(secret)
         ENV['TITO_WEBHOOK_TOKEN'].eql?(secret)
       end
-      def authenticate
+      def authenticate_to_librato
         Librato::Metrics.authenticate ENV['LIBRATO_USER'], ENV['LIBRATO_TOKEN']
       end
     end
@@ -31,9 +31,8 @@ module Libratito
       tito_user_action = request.env['HTTP_X_WEBHOOK_NAME'].split('.').last
       tito_data = @request_payload
 
-      halt unless validates?(tito_data['custom'])
-
-      authenticate
+      halt unless tito_authenticates? tito_data['custom']
+      authenticate_to_librato
 
       queue = Librato::Metrics::Queue.new
       queue.add "#{prefix}.#{tito_user_action}" => { :source => source, :value => 1 }
