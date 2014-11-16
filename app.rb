@@ -20,6 +20,9 @@ module Libratito
       def validates?(secret)
         ENV['TITO_WEBHOOK_TOKEN'].eql?(secret)
       end
+      def authenticate
+        Librato::Metrics.authenticate ENV['LIBRATO_USER'], ENV['LIBRATO_TOKEN']
+      end
     end
 
     post '/events/:name?' do
@@ -31,11 +34,15 @@ module Libratito
 
       halt unless validates?(tito_data['custom'])
 
-      #gauge "#{prefix}.#{tito_user_action} 1"
-      #gauge "#{prefix}.price #{tito_data['price']}"
-      #gauge "#{prefix}.release_price #{tito_data['release_price']}"
-      #gauge "#{prefix}.discount_code.#{tito_data['discount_code_used']} 1"
-      #gauge "#{prefix}.type.#{tito_data['release']} 1"
+      authenticate
+
+      queue = Librato::Metrics::Queue.new
+      queue.add "#{prefix}.#{tito_user_action}" => { :source => source, :value => 1 }
+      queue.add "#{prefix}.type.#{tito_data['release']}" => { :source => source, :value => 1 }
+      queue.add "#{prefix}.price" => { :source => source, :value => tito_data['price'].to_f }
+      queue.add "#{prefix}.release_price" => { :source => source, :value => tito_data['release_price'].to_f }
+      queue.add "#{prefix}.discount_code.#{tito_data['discount_code_used']}" => { :source => source, :value => 1 }
+      queue.submit
 
       #annotation :title => "ticket #{tito_user_action}",
       #            :source => source,
