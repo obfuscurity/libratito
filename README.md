@@ -4,32 +4,46 @@
 
 Libratito provides a bridge service for tracking Tito registration events in Librato.
 
+## Metrics
+
+### Gauges
+
+* `libratito.ticket.price`
+* `libratito.type.<name>.created`
+* `libratito.type.<name>.updated`
+
+### Annotations
+
+* `ticket_created`
+* `ticket_updated`
+
 ## Deployment
+
+First, you will need to create a record-only Librato token. Set this information aside for later. You will also need a secret passphrase to be used by the Tito webhook to authenticate to Libratito. There are no class requirements on the passphrase, but use common sense here.
+
+So far you should have the following:
 
 * `LIBRATO_USER`
 * `LIBRATO_TOKEN`
 * `TITO_WEBHOOK_SECRET`
 
-### Local
+Next, create your Heroku app and push the local Librato fork/clone up to Heroku.
 
 ```bash
-$ bundle install
-$ export LIBRATO_USER
-$ export LIBRATO_TOKEN
-$ export TITO_WEBHOOK_SECRET
-$ foreman start
+$ heroku create
+$ heroku config:set LIBRATO_USER=...
+$ heroku config:set LIBRATO_TOKEN=...
+$ heroku config:set TITO_WEBHOOK_SECRET=...
+$ git push heroku master
 ```
 
-### Heroku
+Now login to your Tito account and navigate to the "Customize &gt; Webhooks" section. You'll need to add the URL for your Libratito app into the `Ticket Create Webhook URL`. This can be retrieved using the following command:
 
 ```bash
-$ export DEPLOY=production/staging/you
-$ heroku create -r $DEPLOY libratito-$DEPLOY
-$ heroku config:set -r $DEPLOY LIBRATO_USER
-$ heroku config:set -r $DEPLOY LIBRATO_TOKEN
-$ heroku config:set -r $DEPLOY TITO_WEBHOOK_SECRET
-$ git push $DEPLOY master
+$ heroku apps:info | grep Web | awk '{print $3}'
 ```
+
+Finally, take the string you set for `TITO_WEBHOOK_SECRET` and enter it in the "Custom Data" field on the same page. Once this is complete you can press save and you should be done. Add an attendee to test that your webhook is working and metrics are being received. You can also use `heroku logs -t` to monitor the application logs.
 
 ## License
 
