@@ -23,6 +23,8 @@ My hope is that the Tito engineers will continue to expose more data through the
 
 ## Deployment
 
+*Caveat:* I like Heroku. You don't have to use it here, but the directions below cater specifically to running this application on Heroku. If you want to run it manually, that's fine. I'm not going to provide detailed instructions, but suffice it to say you should be fine if you know how to `bundle` and then `foreman start`.
+
 First, you will need to create a record-only Librato token. Set this information aside for later. You will also need a secret passphrase to be used by the Tito webhook to authenticate to Libratito. There are no class requirements on the passphrase, but use common sense here.
 
 So far you should have the following:
