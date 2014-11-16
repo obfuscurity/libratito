@@ -4,7 +4,7 @@
 
 Libratito provides a bridge service for tracking Tito registration events in Librato.
 
-## Metrics
+## Metrics Reported
 
 ### Gauges
 
@@ -12,7 +12,7 @@ Libratito provides a bridge service for tracking Tito registration events in Lib
 * `libratito.type.<name>.created`
 * `libratito.type.<name>.updated`
 
-### Annotations
+### Annotation Streams
 
 * `ticket_created`
 * `ticket_updated`
