@@ -4,6 +4,10 @@
 
 Libratito provides a bridge service for tracking Tito registration events in Librato.
 
+I love [Tito](https://ti.to/) but their data visualization has always left me wanting for more. Specifically, I want to be able to monitor long-term trends and financial performance over the course of an entire event, not just the last 30 days.
+
+My hope is that the Tito engineers will continue to expose more data through their [Webhook](https://ti.to/docs/webhook) payload, which can then be easily captured by Libratito and forwarded to Librato.
+
 ## Metrics Reported
 
 ### Gauges
