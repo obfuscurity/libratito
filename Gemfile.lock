@@ -16,16 +16,11 @@ GEM
       aggregate (~> 0.2.2)
       faraday (~> 0.7)
       multi_json
-    mime-types (2.4.3)
     multi_json (1.10.1)
     multipart-post (2.0.0)
-    netrc (0.8.0)
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
-    rest-client (1.7.2)
-      mime-types (>= 1.16, < 3.0)
-      netrc (~> 0.7)
     sinatra (1.4.5)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -45,7 +40,6 @@ DEPENDENCIES
   bundler
   foreman
   librato-metrics
-  rest-client
   sinatra
   thin
   yajl-ruby

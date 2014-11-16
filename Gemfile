@@ -7,6 +7,5 @@ gem 'sinatra'
 gem 'thin'
 gem 'foreman'
 gem 'yajl-ruby'
-gem 'rest-client'
 gem 'librato-metrics'
 
