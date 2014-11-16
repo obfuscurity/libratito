@@ -2,7 +2,7 @@
 
 ## Overview
 
-Libratito provides a bridge service for tracking Tito registration events in Librato.
+Libratito provides a bridge service for tracking Tito registration events in [Librato](https://www.librato.com/).
 
 I love [Tito](https://ti.to/) but their data visualization has always left me wanting for more. Specifically, I want to be able to monitor long-term trends and financial performance over the course of an entire event, not just the last 30 days.
 
