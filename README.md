@@ -13,8 +13,8 @@ My hope is that the Tito engineers will continue to expose more data through the
 ### Gauges
 
 * `libratito.ticket.price`
-* `libratito.type.<name>.created`
-* `libratito.type.<name>.updated`
+* `libratito.ticket.type.<name>.created`
+* `libratito.ticket.type.<name>.updated`
 
 ### Annotation Streams
 
