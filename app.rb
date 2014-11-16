@@ -17,7 +17,7 @@ module Libratito
 
     helpers do
       def tito_authenticates?(secret)
-        ENV['TITO_WEBHOOK_TOKEN'].eql?(secret)
+        ENV['TITO_WEBHOOK_SECRET'].eql?(secret)
       end
       def authenticate_to_librato
         Librato::Metrics.authenticate ENV['LIBRATO_USER'], ENV['LIBRATO_TOKEN']
