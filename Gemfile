@@ -6,6 +6,7 @@ gem 'bundler'
 gem 'sinatra'
 gem 'thin'
 gem 'foreman'
-gem 'json'
+gem 'yajl-ruby'
 gem 'rest-client'
+gem 'librato-metrics'
 

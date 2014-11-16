@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'rest-client'
-require 'time'
-require 'json'
+require 'librato/metrics'
+require 'yajl'
 
 module Libratito
   class Web < Sinatra::Base
@@ -13,7 +13,7 @@ module Libratito
     before do
       content_type :json
       request.body.rewind
-      @request_payload = JSON.parse(request.body.read)
+      @request_payload = Yajl::Parser.new.parse(request.body.read)
     end
 
     helpers do
@@ -24,22 +24,23 @@ module Libratito
 
     post '/events/:name?' do
       source = params[:name]
-      prefix = 'libratito.'
+      prefix = 'libratito.ticket'
 
-      p '1'
-      tito_user_action = request.env['HTTP_X_WEBHOOK_NAME'] # ticket.{created,updated}
-      p '2'
-      tito_webhook_data = @request_payload
-      p '3'
-      halt unless validates?(tito_webhook_data['custom'])
-      p '4'
+      tito_user_action = request.env['HTTP_X_WEBHOOK_NAME'].split('.').last
+      tito_data = @request_payload
 
-      puts "source is #{source}"
-      puts "user action is #{tito_user_action}"
-      puts "webhook data is:"
-      p '5'
-      p tito_webhook_data
-      p '6'
+      halt unless validates?(tito_data['custom'])
+
+      #gauge "#{prefix}.#{tito_user_action} 1"
+      #gauge "#{prefix}.price #{tito_data['price']}"
+      #gauge "#{prefix}.release_price #{tito_data['release_price']}"
+      #gauge "#{prefix}.discount_code.#{tito_data['discount_code_used']} 1"
+      #gauge "#{prefix}.type.#{tito_data['release']} 1"
+
+      #annotation :title => "ticket #{tito_user_action}",
+      #            :source => source,
+      #            :description => "#{tito_data['name']} #{tito_user_action} ticket #{reference}"
+
 
       #RestClient.post 'https://metrics-api.librato.com/v1/metrics'
       #RestClient.post 'https://metrics-api.librato.com/v1/annotations/monitorama-registration'
