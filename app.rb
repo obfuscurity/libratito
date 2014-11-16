@@ -57,7 +57,7 @@ module Libratito
       end
       queue.submit
 
-      Librato::Metrics.annotate :tickets,
+      Librato::Metrics.annotate :"ticket_#{tito_user_action}".to_sym,
         "#{tito_data['reference']} #{tito_user_action}",
         :source => source,
         :description => "#{tito_data['name']} #{tito_user_action} ticket #{tito_data['reference']}"
