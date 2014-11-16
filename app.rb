@@ -35,14 +35,25 @@ module Libratito
       authenticate_to_librato
 
       queue = Librato::Metrics::Queue.new
-      queue.add "#{prefix}.#{tito_user_action}" => { :source => source, :value => 1 }
-      queue.add "#{prefix}.type.#{tito_data['release'].gsub(/\s+/, '_')}" => { :source => source, :value => 1 }
-      queue.add "#{prefix}.price" => { :source => source, :value => tito_data['price'].to_f }
+      queue.add "#{prefix}.price" => {
+        :source => source,
+        :value => tito_data['price'].to_f
+      }
+      queue.add "#{prefix}.type.#{tito_data['release'].gsub(/\s+/, '_')}.#{tito_user_action}" => {
+        :source => source,
+        :value => 1
+      }
       if !tito_data['release_price'].nil?
-        queue.add "#{prefix}.release_price" => { :source => source, :value => tito_data['release_price'].to_f }
+        queue.add "#{prefix}.release_price" => {
+          :source => source,
+          :value => tito_data['release_price'].to_f
+        }
       end
       if !tito_data['discount_code_used'].empty?
-        queue.add "#{prefix}.discount_code.#{tito_data['discount_code_used']}" => { :source => source, :value => 1 }
+        queue.add "#{prefix}.discount_code.#{tito_data['discount_code_used']}" => {
+          :source => source,
+          :value => 1
+        }
       end
       queue.submit
 
