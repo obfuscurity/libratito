@@ -48,9 +48,9 @@ module Libratito
       queue.submit
 
       Librato::Metrics.annotate :tickets,
-        "#{reference} #{tito_user_action}",
+        "#{tito_data['reference']} #{tito_user_action}",
         :source => source,
-        :description => "#{tito_data['name']} #{tito_user_action} ticket #{reference}"
+        :description => "#{tito_data['name']} #{tito_user_action} ticket #{tito_data['reference']}"
 
       200
     end
