@@ -47,13 +47,11 @@ module Libratito
       end
       queue.submit
 
-      #annotation :title => "ticket #{tito_user_action}",
-      #            :source => source,
-      #            :description => "#{tito_data['name']} #{tito_user_action} ticket #{reference}"
+      Librato::Metrics.annotate :tickets,
+        "#{reference} #{tito_user_action}",
+        :source => source,
+        :description => "#{tito_data['name']} #{tito_user_action} ticket #{reference}"
 
-
-      #RestClient.post 'https://metrics-api.librato.com/v1/metrics'
-      #RestClient.post 'https://metrics-api.librato.com/v1/annotations/monitorama-registration'
       200
     end
 
